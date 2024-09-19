@@ -73,12 +73,16 @@ if len(selected_features) > 0:
     # Make predictions on test.csv
     test_predictions = model.predict(processed_test_data)
 
+    # Prepare the submission file
+    submission = test_data[['PassengerId']].copy()
+    submission['Survived'] = test_predictions
+
+    # Show submission data
     st.write("Predictions on Test Data:")
-    test_data['Survived'] = test_predictions
-    st.write(test_data.head())
+    st.write(submission.head())
 
     # Download the predictions as a CSV file
-    csv = test_data[['PassengerId', 'Survived']].to_csv(index=False)
+    csv = submission.to_csv(index=False)
     st.download_button(
         label="Download Predictions",
         data=csv,
