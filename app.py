@@ -74,7 +74,7 @@ if len(selected_features) > 0:
     test_predictions = model.predict(processed_test_data)
 
     # Prepare the submission file
-    submission = test_data[['PassengerId']].copy()
+    submission = test_data.copy()
     submission['Survived'] = test_predictions
 
     # Show submission data
