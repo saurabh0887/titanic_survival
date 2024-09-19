@@ -112,6 +112,20 @@ if len(selected_features) > 0:
     # Make prediction on custom input
     if st.sidebar.button("Predict"):
         prediction = model.predict(input_df[selected_features])
-        st.write(f"Prediction (1 = Survived, 0 = Not Survived): {prediction[0]}")
+        
+        # Show the input values used for prediction
+        st.write("### Input Values:")
+        for feature in selected_features:
+            st.write(f"{feature}: {input_df[feature].values[0]}")  # Display the value for each selected feature
+
+        # Show the prediction result
+        st.write(f"### Prediction Result:")
+        st.write(f"**Prediction (1 = Survived, 0 = Not Survived):** {prediction[0]}")
+
+        # Optional: Explain the prediction
+        if prediction[0] == 1:
+            st.write("This passenger is predicted to have survived.")
+        else:
+            st.write("This passenger is predicted not to have survived.")
 else:
     st.write("Please select at least one feature for training the model.")
